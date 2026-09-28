@@ -173,7 +173,7 @@ async function processExpenseText(text) {
     micBtn.innerHTML = '<i class="fas fa-spinner"></i>';
     
     try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
         
         const prompt = `
         Analise a seguinte frase sobre um gasto e extraia as informações em formato JSON estrito.
@@ -202,11 +202,16 @@ async function processExpenseText(text) {
         });
 
         if (!response.ok) {
-            throw new Error('Falha na API do Gemini. Verifique sua chave.');
+            const errData = await response.json().catch(() => ({}));
+            console.error("API Error:", errData);
+            throw new Error('Falha na API do Gemini. Verifique sua chave ou limite de uso.');
         }
 
         const data = await response.json();
-        const responseText = data.candidates[0].content.parts[0].text;
+        let responseText = data.candidates[0].content.parts[0].text;
+        
+        // Limpar possíveis marcações de markdown que a IA possa enviar por engano
+        responseText = responseText.replace(/```json/gi, '').replace(/```/g, '').trim();
         
         const expenseData = JSON.parse(responseText);
         
