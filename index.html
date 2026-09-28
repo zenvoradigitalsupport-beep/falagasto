@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FalaGasto</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <img src="logo.png" alt="FalaGasto Logo" id="appLogo" style="width: 32px; height: 32px; border-radius: 8px;">
+                <h1>FalaGasto</h1>
+            </div>
+            <button id="settingsBtn" class="icon-btn"><i class="fas fa-cog"></i></button>
+        </header>
+
+        <!-- View: Início (Home) -->
+        <div id="viewHome" class="view active">
+            <div class="total-card">
+                <span class="total-label">Total Gasto (Este Mês)</span>
+                <h2 id="totalAmount">R$ 0,00</h2>
+                <div class="glow-bg"></div>
+            </div>
+
+            <div class="mic-section">
+                <div class="mic-container">
+                    <div class="mic-ripple"></div>
+                    <button id="micBtn" class="mic-btn">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <p id="micStatus">Toque para falar (ex: "Gastei 20 no Uber")</p>
+                
+                <div class="text-input-container">
+                    <input type="text" id="expenseInput" placeholder="Ou digite: Gastei 20 no mercado" autocomplete="off">
+                    <button id="sendTextBtn" title="Enviar texto"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+
+            <div class="expenses-list">
+                <div class="list-header">
+                    <h3>Últimos Gastos Adicionados</h3>
+                </div>
+                <ul id="expensesUl">
+                    <!-- Gastos serão injetados aqui via JS -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- View: Relatórios (Reports) -->
+        <div id="viewReport" class="view">
+            <div class="report-header">
+                <button id="prevMonthBtn" class="icon-btn"><i class="fas fa-chevron-left"></i></button>
+                <h2 id="currentMonthLabel">Mês Ano</h2>
+                <button id="nextMonthBtn" class="icon-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            <div class="total-card">
+                <span class="total-label">Total do Mês</span>
+                <h2 id="reportTotalAmount">R$ 0,00</h2>
+                <div class="glow-bg"></div>
+            </div>
+
+            <div class="category-breakdown">
+                <div class="list-header">
+                    <h3>Por Categoria</h3>
+                </div>
+                <ul id="categoryList">
+                    <!-- JS Injects Here -->
+                </ul>
+            </div>
+
+            <div class="expenses-history">
+                <div class="list-header">
+                    <h3>Histórico de Dias</h3>
+                </div>
+                <div id="historyList">
+                    <!-- JS Injects Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button id="navHome" class="nav-btn active">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+        </button>
+        <button id="navReport" class="nav-btn">
+            <i class="fas fa-chart-pie"></i>
+            <span>Relatórios</span>
+        </button>
+    </nav>
+
+    <!-- Modal de Configurações -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeSettings">&times;</span>
+            <h2><i class="fas fa-key"></i> Configurações</h2>
+            <div class="form-group">
+                <label for="geminiApiKey">Chave da API do Google Gemini</label>
+                <input type="password" id="geminiApiKey" placeholder="AIzaSy...">
+                <p class="help-text">Sua chave fica criptografada e salva apenas neste dispositivo.</p>
+            </div>
+            <button id="saveSettingsBtn" class="primary-btn">Salvar Configurações</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
